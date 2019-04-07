@@ -21,7 +21,7 @@ tags: oauth2
 
 首先给出我的依赖：
 
-		<dependency>
+	    <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
