@@ -1,25 +1,26 @@
 ---
 title: Oauth2学习笔记
 date: 17:05 2019/4/7
-tags:
+tags: oauth2
 ---
 
-oauth2根据使用场景不同，分成了4种模式
+### oauth2根据使用场景不同，分成了4种模式
 
-授权码模式（authorization code） 商用模式主要使用授权码模式
-简化模式（implicit）
-密码模式（resource owner password credentials）
-客户端模式（client credentials）
+授权码模式（authorization code） 商用模式主要使用授权码模式  
+简化模式（implicit）  
+密码模式（resource owner password credentials）  
+客户端模式（client credentials）  
 
-使用oauth2保护你的应用，可以分为简易的分为三个步骤
+### 使用oauth2保护你的应用，可以分为简易的分为三个步骤
 
-配置资源服务器
-配置认证服务器
-配置spring security
+配置资源服务器  
+配置认证服务器  
+配置spring security  
 
-写一个简单的密码模式的demo如下：
+### 写一个简单的密码模式的demo如下：
 
 首先给出我的依赖：
+
 		<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -40,7 +41,6 @@ oauth2根据使用场景不同，分成了4种模式
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -48,9 +48,10 @@ oauth2根据使用场景不同，分成了4种模式
         </dependency>
 
 配置资源服务器：
-@Configuration
-@EnableResourceServer
-public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
+
+    @Configuration
+    @EnableResourceServer
+    public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
     private static final String DEMO_RESOURCE_ID = "order";
 
     @Override
@@ -71,9 +72,9 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .anonymous()
                 .and()
                 .authorizeRequests()
-//                    .antMatchers("/product/**").access("#oauth2.hasScope('select') and hasRole('ROLE_USER')")
+//              .antMatchers("/product/**").access("#oauth2.hasScope('select') and hasRole('ROLE_USER')")
                 .antMatchers("/order/**").authenticated();//配置order访问控制，必须认证过后才可以访问
-        // @formatter:on
+//             @formatter:on
     }
 }
 
