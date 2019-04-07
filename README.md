@@ -72,16 +72,17 @@ tags: oauth2
                 .anonymous()
                 .and()
                 .authorizeRequests()
-//              .antMatchers("/product/**").access("#oauth2.hasScope('select') and hasRole('ROLE_USER')")
+    //              .antMatchers("/product/**").access("#oauth2.hasScope('select') and hasRole('ROLE_USER')")
                 .antMatchers("/order/**").authenticated();//配置order访问控制，必须认证过后才可以访问
-//             @formatter:on
+    //             @formatter:on
+        }
     }
-}
 
-配置认证服务器：
-@Configuration
-@EnableAuthorizationServer
-public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
+配置认证服务器：  
+
+    @Configuration
+    @EnableAuthorizationServer
+    public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
     private static final String DEMO_RESOURCE_ID = "order";
 
     @Autowired
@@ -121,9 +122,10 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 }
 
 配置spring security
-@Configuration
-@EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    @Configuration
+    @EnableWebSecurity
+    public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     @Override
     protected UserDetailsService userDetailsService(){
@@ -146,8 +148,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        AuthenticationManager manager = super.authenticationManagerBean();
-        return manager;
+        public AuthenticationManager authenticationManagerBean() throws Exception {
+            AuthenticationManager manager = super.authenticationManagerBean();
+            return manager;
+        }
     }
-}
