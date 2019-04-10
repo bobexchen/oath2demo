@@ -25,7 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected UserDetailsService userDetailsService(){
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(User.withUsername("user_1").password("{noop}123456").authorities("USER").build());
-        manager.createUser(User.withUsername("user_2").password("{noop}123456").authorities("USER").build());
+//        manager.createUser(User.withUsername("user_2").password("{noop}123456").authorities("USER").build());
         return manager;
     }
 
@@ -37,7 +37,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/oauth/*").permitAll();
-        // @formatter:on
+        // @formatter:onclient_2
     }
 
     @Bean

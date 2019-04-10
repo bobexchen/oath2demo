@@ -3,6 +3,7 @@ package com.boboexchen.oauthdemoooo.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -21,12 +22,10 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
-    private static final String DEMO_RESOURCE_ID = "order";
+    private static final String DEMO_RESOURCE_ID = "resource";
 
     @Autowired
     AuthenticationManager authenticationManager;
-    @Autowired
-    RedisConnectionFactory redisConnectionFactory;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -48,8 +47,10 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
-                .tokenStore(new RedisTokenStore(redisConnectionFactory))
-                .authenticationManager(authenticationManager);
+                //.tokenStore(new RedisTokenStore(redisConnectionFactory))
+                .authenticationManager(authenticationManager)
+                //添加get，post方法
+                .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
     }
 
     @Override
