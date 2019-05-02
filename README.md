@@ -153,3 +153,16 @@ tags: oauth2
             return manager;
         }
     }
+    
+Postman测试接口
+
+1.使用http://localhost:8080/demo/1会返回参数  
+2.使用http://localhost:8080/resource/1则会显示未经过认证  
+3.通过  
+    http://localhost:8080/oauth/token?username=user_1&password=123456&grant_type=password&scope=select&client_id=client_2&client_secret=123456
+    获得token  
+4.resource添加token则能返回对应的结果，例：   
+    http://localhost:8080/resource/1?access_token=e9492791-beff-4f96-9ff7-8b6e52bfafb2
+
+    
+    
