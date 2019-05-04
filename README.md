@@ -158,11 +158,35 @@ Postman测试接口
 
 1.使用http://localhost:8080/demo/1会返回参数  
 2.使用http://localhost:8080/resource/1则会显示未经过认证  
-3.通过  
+3.密码模式通过  
     http://localhost:8080/oauth/token?username=user_1&password=123456&grant_type=password&scope=select&client_id=client_2&client_secret=123456
     获得token  
+        {
+            "access_token": "e9492791-beff-4f96-9ff7-8b6e52bfafb2",
+            "token_type": "bearer",
+            "refresh_token": "f0891fcb-77e6-4c3a-a37d-d75f0a6432f0",
+            "expires_in": 43199,
+            "scope": "select"
+        }
+        其中expires_in为有效时长，单位为秒，access_token为令牌密钥
+   客户端模式通过
+   http://localhost:8080/oauth/token?grant_type=client_credentials&scope=select&client_id=client_1&client_secret=123456
+   获取token
+    {
+        "access_token": "091c4fea-56bb-433e-b94f-2c0dd19bc286",
+        "token_type": "bearer",
+        "expires_in": 43199,
+        "scope": "select"
+     }
 4.resource添加token则能返回对应的结果，例：   
     http://localhost:8080/resource/1?access_token=e9492791-beff-4f96-9ff7-8b6e52bfafb2
+    
+    
+client模式，没有用户的概念，直接与认证服务器交互，用配置中的客户端信息去申请accessToken，客户端有自己的client_id,client_secret对应于用户的username,password，而客户端也拥有自己的authorities，当采取client模式认证时，对应的权限也就是客户端自己的authorities。
+password模式，自己本身有一套用户体系，在认证时需要带上自己的用户名和密码，以及客户端的client_id,client_secret。此时，accessToken所包含的权限是用户本身的权限，而不是客户端的权限。
+    
+1、Client模式并不存在对个体用户授权的行为，被授权的主体为client。因此，该模式可用于对某类用户进行集体授权。
 
     
-    
+ 参考博客：[从零开始的Spring Security Oauth2](http://blog.didispace.com/spring-security-oauth2-xjf-1/)   
+           [spring security实战 3](https://segmentfault.com/a/1190000015338925)
